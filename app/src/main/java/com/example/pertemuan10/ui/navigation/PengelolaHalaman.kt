@@ -4,10 +4,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.pertemuan10.ui.view.mahasiswa.DestinasiInsert
+import com.example.pertemuan10.ui.view.mahasiswa.DetailMhsView
 import com.example.pertemuan10.ui.view.mahasiswa.HomeMhsView
 import com.example.pertemuan10.ui.view.mahasiswa.InsertMhsView
 
@@ -48,6 +51,31 @@ fun PengelolaHalaman(
                 },
                 modifier = modifier,
             )
+        }
+
+        composable(
+            DestinasiDetail.routesWithArg,
+            arguments = listOf(
+                navArgument(DestinasiDetail.NIM) {
+                    type = NavType.StringType
+                }
+            )
+        ) {
+            val nim = it.arguments?.getString(DestinasiDetail.NIM)
+            nim?.let { nim ->
+                DetailMhsView(
+                    onBack = {
+                        navController.popBackStack()
+                    },
+                    onEditClick = {
+                        navController.navigate("${DestinasiUpdate.route}/$it")
+                    },
+                    modifier = modifier,
+                    onDeleteClick = {
+                        navController.popBackStack()
+                    }
+                )
+            }
         }
     }
 }
