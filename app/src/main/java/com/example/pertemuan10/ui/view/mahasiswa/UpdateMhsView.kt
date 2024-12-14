@@ -48,4 +48,42 @@ fun UpdateMhsView(
             }
         }
     }
+    Scaffold(
+        modifier = modifier,
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) }, //Tempatkan Snackbar di Scaffold
+        topBar = {
+            TopAppBar(
+                judul = "Edit Mahasiswa",
+                showBackButton = true,
+                onBack = onBack,
+            )
+        }
+    ) { padding ->
+        Column (
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
+                .padding(16.dp)
+        ){
+
+            // Isi Body
+            InsertBodyMhs(
+                uiState = uiState,
+                onValueChange = { updatedEvent ->
+                    viewModel.updateState(updatedEvent) //Update state di ViewModel
+                },
+                onClick = {
+                    coroutineScope.launch {
+                        if (viewModel.validateFields()) {
+                            viewModel.updateData()
+                            delay(600)
+                            withContext(Dispatchers.Main) {
+                                onNavigate() //Navigasi di main thread
+                            }
+                        }
+                    }
+                }
+            )
+        }
+    }
 }
