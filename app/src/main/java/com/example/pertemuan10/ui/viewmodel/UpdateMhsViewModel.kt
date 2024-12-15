@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pertemuan10.data.entity.Mahasiswa
 import com.example.pertemuan10.repository.RepositoryMhs
+import com.example.pertemuan10.ui.navigation.DestinasiUpdate
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -20,7 +21,7 @@ class UpdateMhsViewModel (
     var updateUIState by mutableStateOf(MhsUIState())
         private set
 
-    private val _nim: String = checkNotNull(savedStateHandle[DestinasiEdit.NIM])
+    private val _nim: String = checkNotNull(savedStateHandle[DestinasiUpdate.NIM])
 
     init {
         viewModelScope.launch {
@@ -67,7 +68,7 @@ class UpdateMhsViewModel (
                     println("snackBarMessage diatur: ${updateUIState.snackBarMessage}")
                 } catch (e: Exception) {
                     updateUIState = updateUIState.copy(
-                        snackBarMessage = "Data gaga diupdate"
+                        snackBarMessage = "Data gagal diupdate"
                     )
                 }
             }

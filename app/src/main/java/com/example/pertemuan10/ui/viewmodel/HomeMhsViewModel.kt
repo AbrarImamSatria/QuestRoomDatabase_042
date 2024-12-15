@@ -27,7 +27,7 @@ class HomeMhsViewModel (
         }
         .onStart {
             emit(HomeUiState(isLoading = true))
-            delay(999)
+            delay(900)
         }
         .catch {
             emit(

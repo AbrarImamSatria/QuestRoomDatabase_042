@@ -53,7 +53,6 @@ fun DetailMhsView(
                 judul = "Detail Mahasiswa",
                 showBackButton = true,
                 onBack = onBack,
-                modifier = modifier
             )
         },
         floatingActionButton = {
