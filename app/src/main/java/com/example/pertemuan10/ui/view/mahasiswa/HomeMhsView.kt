@@ -50,6 +50,7 @@ fun HomeMhsView(
     modifier: Modifier = Modifier
 ){
     Scaffold (
+        modifier = Modifier.padding(top = 20.dp), // Padding ke bawah
         topBar = {
             TopAppBar(
                 judul = "Daftar Mahasiswa",
