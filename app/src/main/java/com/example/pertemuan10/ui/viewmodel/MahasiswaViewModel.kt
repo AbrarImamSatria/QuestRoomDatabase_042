@@ -22,7 +22,7 @@ class MahasiswaViewModel(
         )
     }
     //validasi data input pengguna
-    private fun validateFields(): Boolean {
+     fun validateFields(): Boolean {
         val event = uiState.mahasiswaEvent
         val errorState = FormErrorState(
             nim = if (event.nim.isNotEmpty()) null else "NIM tidak boleh kosong",
@@ -30,7 +30,7 @@ class MahasiswaViewModel(
             jenisKelamin = if (event.jenisKelamin.isNotEmpty()) null else "Jenis Kelamin tidak boleh kosong",
             alamat = if (event.alamat.isNotEmpty()) null else "Alamat tidak boleh kosong",
             kelas = if (event.kelas.isNotEmpty()) null else "Kelas tidak boleh kosong",
-            angkatan = if (event.angkatan.isNotEmpty()) null else "Angkata tidak boleh kosong"
+            angkatan = if (event.angkatan.isNotEmpty()) null else "Angkatan tidak boleh kosong"
         )
 
         uiState = uiState.copy(isEntryValid = errorState)
