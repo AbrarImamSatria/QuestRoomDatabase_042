@@ -32,7 +32,10 @@ import com.example.pertemuan10.ui.viewmodel.MahasiswaEvent
 import com.example.pertemuan10.ui.viewmodel.MahasiswaViewModel
 import com.example.pertemuan10.ui.viewmodel.MhsUIState
 import com.example.pertemuan10.ui.viewmodel.PenyediaViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 object DestinasiInsert: AlamatNavigasi {
     override val route: String = "insert_mhs"
@@ -61,7 +64,14 @@ fun InsertMhsView(
 
     Scaffold (
         modifier = modifier,
-        snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
+        topBar = {
+            TopAppBar(
+                onBack = onBack,
+                showBackButton = true,
+                judul = "Tambah Mahasiswa"
+            )
+        }
     ){ padding ->
         Column (
             modifier = Modifier
@@ -69,12 +79,6 @@ fun InsertMhsView(
                 .padding(padding)
                 .padding(16.dp)
         ){
-
-            TopAppBar(
-                onBack = onBack,
-                showBackButton = true,
-                judul = "Tambah Mahasiswa"
-            )
             // Isi Body
             InsertBodyMhs(
                 uiState = uiState,
@@ -83,9 +87,14 @@ fun InsertMhsView(
                 },
                 onClick = {
                     coroutineScope.launch {
-                        viewModel.saveData() // Simpan data
+                        if (viewModel.validateFields()) {
+                            viewModel.saveData()
+                            delay(600)
+                            withContext(Dispatchers.Main) {
+                                onNavigate()
+                            }
+                        }
                     }
-                    onNavigate()
                 }
             )
         }
